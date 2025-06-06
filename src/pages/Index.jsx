@@ -34,19 +34,20 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-black">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg shadow-lg border-b border-gray-100 sticky top-0 z-50">
+      <header className="bg-black/80 backdrop-blur-xl shadow-2xl border-b border-gray-700/50 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl shadow-lg">
-              <Wrench className="h-8 w-8 text-white" />
+            <div className="p-3 bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-700 rounded-2xl shadow-2xl relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-2xl blur-lg opacity-60 animate-pulse"></div>
+              <Wrench className="h-8 w-8 text-white relative z-10" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
                 Ra Assistência Técnica
               </h1>
-              <p className="text-sm text-gray-500 font-medium">Especialistas em Tecnologia</p>
+              <p className="text-sm text-gray-400 font-medium">Tecnologia Avançada</p>
             </div>
           </div>
           <nav className="hidden md:flex space-x-8">
@@ -55,22 +56,22 @@ const Index = () => {
                 key={item} 
                 href={item === 'Serviços' ? '#services' : '#'} 
                 onClick={item === 'Serviços' ? scrollToServices : undefined}
-                className="text-gray-700 hover:text-blue-600 transition-all duration-300 relative group font-medium"
+                className="text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
               >
                 {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </nav>
           <div className="flex space-x-3">
             <Button 
               onClick={() => setIsLoginOpen(true)}
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-700 hover:to-rose-800 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               <LogIn className="mr-2 h-4 w-4" />
               Login
             </Button>
-            <Button className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-800 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
               <Zap className="mr-2 h-4 w-4" />
               Orçamento Grátis
             </Button>
@@ -80,37 +81,54 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white to-yellow-50/30"></div>
-        <div className="container mx-auto px-4 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-slate-900/70 to-black/90"></div>
+        {/* Tech Grid Background */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="grid grid-cols-20 gap-1 h-full">
+            {Array.from({ length: 400 }).map((_, i) => (
+              <div 
+                key={i} 
+                className="border border-cyan-500/30 animate-pulse" 
+                style={{ animationDelay: `${i * 0.1}s` }}
+              ></div>
+            ))}
+          </div>
+        </div>
+        {/* Floating Tech Elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-pink-500/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-20 left-1/3 w-16 h-16 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-sm border border-blue-200/50 rounded-full px-6 py-3 shadow-sm">
-                <Cpu className="h-5 w-5 text-blue-600" />
-                <span className="text-blue-800 font-medium">Tecnologia de Ponta</span>
+              <div className="inline-flex items-center space-x-2 bg-black/70 backdrop-blur-sm border border-cyan-400/50 rounded-full px-6 py-3 shadow-2xl">
+                <Cpu className="h-5 w-5 text-cyan-400" />
+                <span className="text-cyan-300 font-medium">Tecnologia Avançada</span>
               </div>
               
               <div className="space-y-4">
                 <h2 className="text-6xl md:text-7xl font-black leading-tight">
-                  <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">Conserto</span>
+                  <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse">Conserto</span>
                   <br />
-                  <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">Rápido</span>
+                  <span className="bg-gradient-to-r from-red-500 via-pink-500 to-rose-600 bg-clip-text text-transparent">Tech</span>
                   <br />
-                  <span className="text-gray-900">& Confiável</span>
+                  <span className="text-white">Avançado</span>
                 </h2>
               </div>
               
-              <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
-                Especialistas em reparo de dispositivos móveis e computadores com mais de 10 anos de experiência. 
-                <span className="text-blue-600 font-semibold"> Diagnóstico gratuito</span> e garantia em todos os serviços.
+              <p className="text-xl text-gray-300 leading-relaxed max-w-lg">
+                Especialistas em reparo de dispositivos com tecnologia de ponta e mais de 10 anos de experiência. 
+                <span className="text-cyan-400 font-semibold"> Diagnóstico gratuito</span> e garantia premium.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 group">
+                <Button size="lg" className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-800 text-white shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 group">
                   <Phone className="mr-2 h-5 w-5" />
                   Ligar Agora
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button size="lg" variant="outline" className="border-2 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300 shadow-lg transition-all duration-300">
+                <Button size="lg" variant="outline" className="border-2 border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/10 hover:border-cyan-300 bg-black/50 backdrop-blur-sm shadow-xl transition-all duration-300">
                   <MapPin className="mr-2 h-5 w-5" />
                   Como Chegar
                 </Button>
@@ -118,13 +136,13 @@ const Index = () => {
             </div>
             
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-400/20 to-yellow-400/20 rounded-3xl blur-xl"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/30 via-purple-500/30 to-pink-500/30 rounded-3xl blur-2xl animate-pulse"></div>
               <img 
                 src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop" 
                 alt="Reparo de computadores"
-                className="relative rounded-3xl shadow-2xl w-full object-cover h-96"
+                className="relative rounded-3xl shadow-2xl w-full object-cover h-96 border border-cyan-400/30"
               />
-              <div className="absolute -bottom-8 -left-8 bg-gradient-to-r from-yellow-400 to-yellow-500 p-6 rounded-2xl shadow-xl backdrop-blur-sm">
+              <div className="absolute -bottom-8 -left-8 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-yellow-400/30">
                 <div className="flex items-center space-x-3">
                   <Shield className="h-8 w-8 text-white" />
                   <div>
@@ -139,53 +157,53 @@ const Index = () => {
       </section>
 
       {/* Cards Informativos */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-br from-gray-900 to-black">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+            <h3 className="text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
               Por que escolher a Ra Assistência?
             </h3>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">Nossos diferenciais que nos tornam únicos no mercado</p>
+            <p className="text-gray-400 max-w-2xl mx-auto text-lg">Nossos diferenciais tecnológicos que nos tornam únicos</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="group bg-white border-2 border-blue-100 hover:border-blue-300 hover:shadow-2xl transition-all duration-500 overflow-hidden">
+            <Card className="group bg-black/50 border-2 border-cyan-500/30 hover:border-cyan-400/60 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-500 overflow-hidden backdrop-blur-sm">
               <CardHeader className="text-center relative">
-                <div className="mx-auto bg-gradient-to-br from-blue-100 to-blue-200 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Clock className="h-10 w-10 text-blue-600" />
+                <div className="mx-auto bg-gradient-to-br from-cyan-500/20 to-cyan-600/30 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-cyan-400/30">
+                  <Clock className="h-10 w-10 text-cyan-400" />
                 </div>
-                <CardTitle className="text-gray-900 text-xl">Rapidez</CardTitle>
+                <CardTitle className="text-white text-xl">Velocidade Tech</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 text-center leading-relaxed">
-                  Diagnóstico em 30 minutos e reparo no mesmo dia quando possível
+                <p className="text-gray-300 text-center leading-relaxed">
+                  Diagnóstico em 30 minutos e reparo ultra-rápido com tecnologia avançada
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="group bg-white border-2 border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-500 overflow-hidden">
+            <Card className="group bg-black/50 border-2 border-purple-500/30 hover:border-purple-400/60 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 overflow-hidden backdrop-blur-sm">
               <CardHeader className="text-center relative">
-                <div className="mx-auto bg-gradient-to-br from-red-100 to-red-200 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Star className="h-10 w-10 text-red-600" />
+                <div className="mx-auto bg-gradient-to-br from-purple-500/20 to-purple-600/30 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-purple-400/30">
+                  <Star className="h-10 w-10 text-purple-400" />
                 </div>
-                <CardTitle className="text-gray-900 text-xl">Qualidade</CardTitle>
+                <CardTitle className="text-white text-xl">Excelência</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 text-center leading-relaxed">
-                  Técnicos certificados e peças originais para garantir a durabilidade
+                <p className="text-gray-300 text-center leading-relaxed">
+                  Técnicos especializados e peças premium para máxima durabilidade
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="group bg-white border-2 border-yellow-100 hover:border-yellow-300 hover:shadow-2xl transition-all duration-500 overflow-hidden">
+            <Card className="group bg-black/50 border-2 border-pink-500/30 hover:border-pink-400/60 hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 overflow-hidden backdrop-blur-sm">
               <CardHeader className="text-center relative">
-                <div className="mx-auto bg-gradient-to-br from-yellow-100 to-yellow-200 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Shield className="h-10 w-10 text-yellow-600" />
+                <div className="mx-auto bg-gradient-to-br from-pink-500/20 to-pink-600/30 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-pink-400/30">
+                  <Shield className="h-10 w-10 text-pink-400" />
                 </div>
-                <CardTitle className="text-gray-900 text-xl">Confiança</CardTitle>
+                <CardTitle className="text-white text-xl">Confiança Tech</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 text-center leading-relaxed">
-                  Mais de 5000 clientes satisfeitos e garantia estendida em todos os serviços
+                <p className="text-gray-300 text-center leading-relaxed">
+                  Mais de 5000 clientes satisfeitos e garantia premium estendida
                 </p>
               </CardContent>
             </Card>
@@ -194,51 +212,51 @@ const Index = () => {
       </section>
 
       {/* Serviços Cards */}
-      <section id="services" className="py-24 bg-gradient-to-br from-gray-50 to-white">
+      <section id="services" className="py-24 bg-gradient-to-br from-black via-gray-900 to-slate-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h3 className="text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-              Nossos Serviços
+            <h3 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Serviços Tecnológicos
             </h3>
-            <p className="text-gray-600 max-w-3xl mx-auto text-xl leading-relaxed">
-              Oferecemos soluções completas para seus dispositivos eletrônicos com tecnologia de ponta
+            <p className="text-gray-400 max-w-3xl mx-auto text-xl leading-relaxed">
+              Soluções avançadas para seus dispositivos com tecnologia de última geração
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Smartphones */}
-            <Card className="group bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-blue-50 to-blue-100 border-b">
+            <Card className="group bg-black/70 border border-cyan-500/30 shadow-2xl hover:shadow-cyan-500/30 transition-all duration-500 overflow-hidden backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-br from-cyan-500/10 to-cyan-600/20 border-b border-cyan-500/30">
                 <div className="flex items-center space-x-4">
-                  <div className="p-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <div className="p-4 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300 border border-cyan-400/50">
                     <Smartphone className="h-8 w-8 text-white" />
                   </div>
-                  <CardTitle className="text-gray-900 text-2xl">Smartphones</CardTitle>
+                  <CardTitle className="text-white text-2xl">Smartphones</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="p-6">
-                <CardDescription className="mb-6 text-gray-600 text-base leading-relaxed">
-                  Conserto especializado de smartphones de todas as marcas
+                <CardDescription className="mb-6 text-gray-400 text-base leading-relaxed">
+                  Reparo especializado com tecnologia avançada
                 </CardDescription>
-                <ul className="space-y-3 text-gray-600">
+                <ul className="space-y-3 text-gray-300">
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-blue-500" />
+                    <ChevronRight className="h-4 w-4 text-cyan-400" />
                     <span>Troca de tela e touch</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-blue-500" />
+                    <ChevronRight className="h-4 w-4 text-cyan-400" />
                     <span>Reparo de placa mãe</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-blue-500" />
+                    <ChevronRight className="h-4 w-4 text-cyan-400" />
                     <span>Troca de bateria</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-blue-500" />
+                    <ChevronRight className="h-4 w-4 text-cyan-400" />
                     <span>Problemas de software</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-blue-500" />
+                    <ChevronRight className="h-4 w-4 text-cyan-400" />
                     <span>Recuperação pós água</span>
                   </li>
                 </ul>
@@ -246,38 +264,38 @@ const Index = () => {
             </Card>
 
             {/* Computadores */}
-            <Card className="group bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-red-50 to-red-100 border-b">
+            <Card className="group bg-black/70 border border-purple-500/30 shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 overflow-hidden backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-br from-purple-500/10 to-purple-600/20 border-b border-purple-500/30">
                 <div className="flex items-center space-x-4">
-                  <div className="p-4 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <div className="p-4 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300 border border-purple-400/50">
                     <Monitor className="h-8 w-8 text-white" />
                   </div>
-                  <CardTitle className="text-gray-900 text-2xl">Computadores</CardTitle>
+                  <CardTitle className="text-white text-2xl">Computadores</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="p-6">
-                <CardDescription className="mb-6 text-gray-600 text-base leading-relaxed">
-                  Manutenção completa de PCs e notebooks
+                <CardDescription className="mb-6 text-gray-400 text-base leading-relaxed">
+                  Manutenção completa com tecnologia premium
                 </CardDescription>
-                <ul className="space-y-3 text-gray-600">
+                <ul className="space-y-3 text-gray-300">
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-red-500" />
+                    <ChevronRight className="h-4 w-4 text-purple-400" />
                     <span>Formatação e instalação</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-red-500" />
+                    <ChevronRight className="h-4 w-4 text-purple-400" />
                     <span>Limpeza e manutenção</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-red-500" />
+                    <ChevronRight className="h-4 w-4 text-purple-400" />
                     <span>Upgrade de hardware</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-red-500" />
+                    <ChevronRight className="h-4 w-4 text-purple-400" />
                     <span>Remoção de malware</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-red-500" />
+                    <ChevronRight className="h-4 w-4 text-purple-400" />
                     <span>Recuperação de dados</span>
                   </li>
                 </ul>
@@ -285,38 +303,38 @@ const Index = () => {
             </Card>
 
             {/* Serviço Express */}
-            <Card className="group bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-yellow-50 to-yellow-100 border-b">
+            <Card className="group bg-black/70 border border-pink-500/30 shadow-2xl hover:shadow-pink-500/30 transition-all duration-500 overflow-hidden backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-br from-pink-500/10 to-pink-600/20 border-b border-pink-500/30">
                 <div className="flex items-center space-x-4">
-                  <div className="p-4 bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <div className="p-4 bg-gradient-to-br from-pink-500 to-pink-700 rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300 border border-pink-400/50">
                     <Zap className="h-8 w-8 text-white" />
                   </div>
-                  <CardTitle className="text-gray-900 text-2xl">Express Tech</CardTitle>
+                  <CardTitle className="text-white text-2xl">Express Tech</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="p-6">
-                <CardDescription className="mb-6 text-gray-600 text-base leading-relaxed">
-                  Serviços rápidos enquanto você espera
+                <CardDescription className="mb-6 text-gray-400 text-base leading-relaxed">
+                  Serviços ultra-rápidos com tecnologia instantânea
                 </CardDescription>
-                <ul className="space-y-3 text-gray-600">
+                <ul className="space-y-3 text-gray-300">
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-yellow-600" />
+                    <ChevronRight className="h-4 w-4 text-pink-400" />
                     <span>Instalação de películas</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-yellow-600" />
+                    <ChevronRight className="h-4 w-4 text-pink-400" />
                     <span>Setup de aplicativos</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-yellow-600" />
+                    <ChevronRight className="h-4 w-4 text-pink-400" />
                     <span>Backup de dados</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-yellow-600" />
+                    <ChevronRight className="h-4 w-4 text-pink-400" />
                     <span>Configurações avançadas</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <ChevronRight className="h-4 w-4 text-yellow-600" />
+                    <ChevronRight className="h-4 w-4 text-pink-400" />
                     <span>Diagnóstico tech</span>
                   </li>
                 </ul>
@@ -327,48 +345,63 @@ const Index = () => {
       </section>
 
       {/* Diferenciais */}
-      <section className="py-24 relative bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto px-4 relative">
+      <section className="py-24 relative bg-gradient-to-br from-gray-900 via-black to-purple-900 overflow-hidden">
+        <div className="absolute inset-0 bg-black/40"></div>
+        {/* Floating particles */}
+        <div className="absolute inset-0">
+          {Array.from({ length: 50 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-20 animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${2 + Math.random() * 3}s`
+              }}
+            />
+          ))}
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
             <h3 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Tecnologia que Faz a Diferença
+              <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Tecnologia do Futuro
               </span>
             </h3>
-            <p className="text-gray-300 text-xl max-w-3xl mx-auto">
-              Utilizamos as melhores práticas e tecnologias mais avançadas do mercado
+            <p className="text-gray-400 text-xl max-w-3xl mx-auto">
+              Utilizamos as mais avançadas tecnologias e práticas do mercado mundial
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center group">
-              <div className="bg-gradient-to-br from-green-500/20 to-green-600/30 backdrop-blur-sm w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-green-500/30 group-hover:scale-110 transition-all duration-500 shadow-xl">
+              <div className="bg-gradient-to-br from-green-500/20 to-green-600/30 backdrop-blur-sm w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-green-500/50 group-hover:scale-110 transition-all duration-500 shadow-2xl shadow-green-500/20">
                 <Shield className="h-12 w-12 text-green-400" />
               </div>
               <h4 className="text-3xl font-bold text-white mb-6">Garantia Premium</h4>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                Todos os nossos serviços possuem garantia estendida de 90 dias com suporte técnico especializado
+              <p className="text-gray-400 text-lg leading-relaxed">
+                Garantia estendida de 90 dias com suporte técnico especializado 24/7
               </p>
             </div>
             
             <div className="text-center group">
-              <div className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/30 backdrop-blur-sm w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-yellow-500/30 group-hover:scale-110 transition-all duration-500 shadow-xl">
+              <div className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/30 backdrop-blur-sm w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-yellow-500/50 group-hover:scale-110 transition-all duration-500 shadow-2xl shadow-yellow-500/20">
                 <Clock className="h-12 w-12 text-yellow-400" />
               </div>
-              <h4 className="text-3xl font-bold text-white mb-6">Velocidade Tech</h4>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                Diagnóstico ultra-rápido e reparo no menor tempo possível com tecnologia de última geração
+              <h4 className="text-3xl font-bold text-white mb-6">Velocidade Quantum</h4>
+              <p className="text-gray-400 text-lg leading-relaxed">
+                Diagnóstico instantâneo e reparo ultra-rápido com IA e automação avançada
               </p>
             </div>
             
             <div className="text-center group">
-              <div className="bg-gradient-to-br from-pink-500/20 to-pink-600/30 backdrop-blur-sm w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-pink-500/30 group-hover:scale-110 transition-all duration-500 shadow-xl">
+              <div className="bg-gradient-to-br from-pink-500/20 to-pink-600/30 backdrop-blur-sm w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-pink-500/50 group-hover:scale-110 transition-all duration-500 shadow-2xl shadow-pink-500/20">
                 <Star className="h-12 w-12 text-pink-400" />
               </div>
-              <h4 className="text-3xl font-bold text-white mb-6">Excelência</h4>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                Peças originais certificadas e técnicos altamente especializados em tecnologia avançada
+              <h4 className="text-3xl font-bold text-white mb-6">Excelência Tech</h4>
+              <p className="text-gray-400 text-lg leading-relaxed">
+                Peças premium certificadas e técnicos com certificação internacional
               </p>
             </div>
           </div>
@@ -376,109 +409,109 @@ const Index = () => {
       </section>
 
       {/* Contato */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-24 bg-gradient-to-br from-black via-gray-900 to-slate-900">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
-              <h3 className="text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                Entre em Contato
+              <h3 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Contato Tecnológico
               </h3>
-              <p className="text-gray-600 text-xl max-w-3xl mx-auto">
-                Estamos prontos para ajudar você com o melhor atendimento tecnológico da região
+              <p className="text-gray-400 text-xl max-w-3xl mx-auto">
+                Entre em contato através dos nossos canais digitais avançados
               </p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <Card className="bg-white shadow-xl border-0">
-                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b">
-                  <CardTitle className="text-gray-900 text-3xl">Informações de Contato</CardTitle>
-                  <CardDescription className="text-gray-600 text-lg">Entre em contato pelos canais abaixo</CardDescription>
+              <Card className="bg-black/70 shadow-2xl border border-cyan-500/30 backdrop-blur-sm">
+                <CardHeader className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-b border-cyan-500/30">
+                  <CardTitle className="text-white text-3xl">Canais de Contato</CardTitle>
+                  <CardDescription className="text-gray-400 text-lg">Conecte-se conosco digitalmente</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-8 p-8">
                   <div className="flex items-center space-x-6">
-                    <div className="p-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl shadow-lg">
+                    <div className="p-4 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-2xl shadow-xl border border-cyan-400/50">
                       <Phone className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900 text-xl">Telefone</p>
-                      <p className="text-gray-600 text-lg">(11) 99999-9999</p>
+                      <p className="font-semibold text-white text-xl">Telefone</p>
+                      <p className="text-gray-400 text-lg">(11) 99999-9999</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-6">
-                    <div className="p-4 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl shadow-lg">
+                    <div className="p-4 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl shadow-xl border border-purple-400/50">
                       <Mail className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900 text-xl">E-mail</p>
-                      <p className="text-gray-600 text-lg">contato@raassistencia.com.br</p>
+                      <p className="font-semibold text-white text-xl">E-mail</p>
+                      <p className="text-gray-400 text-lg">contato@raassistencia.com.br</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-6">
-                    <div className="p-4 bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-2xl shadow-lg">
+                    <div className="p-4 bg-gradient-to-br from-pink-500 to-pink-700 rounded-2xl shadow-xl border border-pink-400/50">
                       <MapPin className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900 text-xl">Endereço</p>
-                      <p className="text-gray-600 text-lg">Rua das Flores, 123 - Centro<br />São Paulo - SP</p>
+                      <p className="font-semibold text-white text-xl">Endereço</p>
+                      <p className="text-gray-400 text-lg">Rua das Flores, 123 - Centro<br />São Paulo - SP</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-6">
-                    <div className="p-4 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl shadow-lg">
+                    <div className="p-4 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl shadow-xl border border-green-400/50">
                       <Clock className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900 text-xl">Horário de Funcionamento</p>
-                      <p className="text-gray-600 text-lg">Segunda a Sexta: 8h às 18h<br />Sábado: 8h às 14h</p>
+                      <p className="font-semibold text-white text-xl">Horário Tech</p>
+                      <p className="text-gray-400 text-lg">Segunda a Sexta: 8h às 18h<br />Sábado: 8h às 14h</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-white shadow-xl border-0">
-                <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b">
-                  <CardTitle className="text-gray-900 text-3xl">Solicite um Orçamento</CardTitle>
-                  <CardDescription className="text-gray-600 text-lg">
-                    Preencha os dados abaixo e entraremos em contato rapidamente
+              <Card className="bg-black/70 shadow-2xl border border-purple-500/30 backdrop-blur-sm">
+                <CardHeader className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-b border-purple-500/30">
+                  <CardTitle className="text-white text-3xl">Orçamento Digital</CardTitle>
+                  <CardDescription className="text-gray-400 text-lg">
+                    Solicite seu orçamento através do nosso sistema inteligente
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8">
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">Nome</label>
+                      <label className="block text-sm font-semibold text-gray-300 mb-3">Nome</label>
                       <input 
                         type="text" 
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500 transition-all duration-300"
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white placeholder-gray-500 transition-all duration-300 backdrop-blur-sm"
                         placeholder="Seu nome completo"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">Telefone</label>
+                      <label className="block text-sm font-semibold text-gray-300 mb-3">Telefone</label>
                       <input 
                         type="tel" 
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500 transition-all duration-300"
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white placeholder-gray-500 transition-all duration-300 backdrop-blur-sm"
                         placeholder="(11) 99999-9999"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">Tipo de Dispositivo</label>
-                      <select className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 transition-all duration-300">
-                        <option>Selecione...</option>
-                        <option>Smartphone</option>
-                        <option>Notebook</option>
-                        <option>Computador Desktop</option>
-                        <option>Tablet</option>
+                      <label className="block text-sm font-semibold text-gray-300 mb-3">Dispositivo</label>
+                      <select className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white transition-all duration-300 backdrop-blur-sm">
+                        <option className="bg-gray-800">Selecione...</option>
+                        <option className="bg-gray-800">Smartphone</option>
+                        <option className="bg-gray-800">Notebook</option>
+                        <option className="bg-gray-800">Computador Desktop</option>
+                        <option className="bg-gray-800">Tablet</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">Descrição do Problema</label>
+                      <label className="block text-sm font-semibold text-gray-300 mb-3">Problema</label>
                       <textarea 
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500 h-32 transition-all duration-300 resize-none"
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white placeholder-gray-500 h-32 transition-all duration-300 resize-none backdrop-blur-sm"
                         placeholder="Descreva o problema do seu dispositivo..."
                       ></textarea>
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 py-4 text-lg">
+                    <Button className="w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-600 hover:via-purple-600 hover:to-pink-600 text-white border-0 shadow-2xl hover:shadow-cyan-500/25 transition-all duration-500 transform hover:scale-105 py-4 text-lg">
                       <Zap className="mr-2 h-5 w-5" />
-                      Enviar Solicitação
+                      Enviar Solicitação Tech
                     </Button>
                   </div>
                 </CardContent>
@@ -489,18 +522,19 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 py-16">
+      <footer className="bg-gradient-to-r from-black via-gray-900 to-black py-16 border-t border-gray-700/50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-4 mb-8 md:mb-0">
-              <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl shadow-lg">
-                <Wrench className="h-8 w-8 text-white" />
+              <div className="p-3 bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-700 rounded-2xl shadow-2xl relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-2xl blur-lg opacity-60 animate-pulse"></div>
+                <Wrench className="h-8 w-8 text-white relative z-10" />
               </div>
               <span className="font-bold text-white text-2xl">Ra Assistência Técnica</span>
             </div>
             <div className="text-center md:text-right">
-              <p className="text-gray-300 text-lg">© 2024 Ra Assistência Técnica. Todos os direitos reservados.</p>
-              <p className="text-gray-400 text-sm mt-2">Desenvolvido com tecnologia e inovação</p>
+              <p className="text-gray-400 text-lg">© 2024 Ra Assistência Técnica. Todos os direitos reservados.</p>
+              <p className="text-gray-500 text-sm mt-2">Desenvolvido com tecnologia futurística e inovação</p>
             </div>
           </div>
         </div>
