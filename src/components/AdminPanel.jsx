@@ -110,7 +110,7 @@ const AdminPanel = ({ onLogout }) => {
     return products.reduce((total, product) => total + product.quantity, 0);
   };
 
-  const getSalesByseller = () => {
+  const getSalesBySeller = () => {
     const salesBySeller = {};
     getCurrentMonthSales().forEach(sale => {
       if (!salesBySeller[sale.sellerId]) {
@@ -174,7 +174,7 @@ const AdminPanel = ({ onLogout }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {Object.entries(getSalesByeller()).map(([seller, data]) => (
+            {Object.entries(getSalesBySeller()).map(([seller, data]) => (
               <div key={seller} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <Users className="h-5 w-5 text-blue-600" />
