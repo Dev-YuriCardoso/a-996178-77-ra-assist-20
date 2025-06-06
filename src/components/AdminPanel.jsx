@@ -11,7 +11,8 @@ import {
   Trash2,
   BarChart3,
   Calendar,
-  Search
+  Search,
+  UserPlus
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,17 +24,22 @@ const AdminPanel = ({ onLogout }) => {
   const [sellers, setSellers] = useState(['João Silva', 'Maria Santos', 'Pedro Oliveira']);
   const [newProduct, setNewProduct] = useState({ name: '', quantity: '', price: '' });
   const [newSale, setNewSale] = useState({ productId: '', sellerId: '', quantity: '' });
+  const [newSeller, setNewSeller] = useState('');
 
   // Carregar dados do localStorage
   useEffect(() => {
     const savedProducts = localStorage.getItem('raProducts');
     const savedSales = localStorage.getItem('raSales');
+    const savedSellers = localStorage.getItem('raSellers');
     
     if (savedProducts) {
       setProducts(JSON.parse(savedProducts));
     }
     if (savedSales) {
       setSales(JSON.parse(savedSales));
+    }
+    if (savedSellers) {
+      setSellers(JSON.parse(savedSellers));
     }
   }, []);
 
@@ -46,6 +52,11 @@ const AdminPanel = ({ onLogout }) => {
   useEffect(() => {
     localStorage.setItem('raSales', JSON.stringify(sales));
   }, [sales]);
+
+  // Salvar vendedores no localStorage
+  useEffect(() => {
+    localStorage.setItem('raSellers', JSON.stringify(sellers));
+  }, [sellers]);
 
   const addProduct = () => {
     if (newProduct.name && newProduct.quantity && newProduct.price) {
@@ -88,6 +99,17 @@ const AdminPanel = ({ onLogout }) => {
     }
   };
 
+  const addSeller = () => {
+    if (newSeller.trim() && !sellers.includes(newSeller.trim())) {
+      setSellers([...sellers, newSeller.trim()]);
+      setNewSeller('');
+    }
+  };
+
+  const deleteSeller = (sellerName) => {
+    setSellers(sellers.filter(seller => seller !== sellerName));
+  };
+
   const deleteProduct = (id) => {
     setProducts(products.filter(p => p.id !== id));
   };
@@ -126,43 +148,43 @@ const AdminPanel = ({ onLogout }) => {
     <div className="space-y-6">
       {/* Cards de resumo */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-blue-50 border-blue-200">
+        <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-blue-600">Total de Produtos</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">Total de Produtos</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-900">{getTotalProducts()}</div>
-            <p className="text-sm text-blue-600">itens em estoque</p>
+            <div className="text-2xl font-bold text-gray-900">{getTotalProducts()}</div>
+            <p className="text-sm text-gray-600">itens em estoque</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-green-50 border-green-200">
+        <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-green-600">Vendas do Mês</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">Vendas do Mês</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-900">{getCurrentMonthSales().length}</div>
-            <p className="text-sm text-green-600">transações</p>
+            <div className="text-2xl font-bold text-gray-900">{getCurrentMonthSales().length}</div>
+            <p className="text-sm text-gray-600">transações</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-yellow-50 border-yellow-200">
+        <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-yellow-600">Receita do Mês</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">Receita do Mês</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-900">R$ {getTotalRevenue().toFixed(2)}</div>
-            <p className="text-sm text-yellow-600">faturamento</p>
+            <div className="text-2xl font-bold text-gray-900">R$ {getTotalRevenue().toFixed(2)}</div>
+            <p className="text-sm text-gray-600">faturamento</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-red-50 border-red-200">
+        <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-red-600">Produtos Únicos</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">Produtos Únicos</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-900">{products.length}</div>
-            <p className="text-sm text-red-600">tipos diferentes</p>
+            <div className="text-2xl font-bold text-gray-900">{products.length}</div>
+            <p className="text-sm text-gray-600">tipos diferentes</p>
           </CardContent>
         </Card>
       </div>
@@ -170,7 +192,7 @@ const AdminPanel = ({ onLogout }) => {
       {/* Vendas por vendedor */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-black">Performance dos Vendedores (Mês Atual)</CardTitle>
+          <CardTitle>Performance dos Vendedores (Mês Atual)</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -178,10 +200,10 @@ const AdminPanel = ({ onLogout }) => {
               <div key={seller} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <Users className="h-5 w-5 text-blue-600" />
-                  <span className="font-medium text-black">{seller}</span>
+                  <span className="font-medium">{seller}</span>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-black">{data.count} vendas</div>
+                  <div className="text-lg font-bold">{data.count} vendas</div>
                   <div className="text-sm text-gray-600">R$ {data.revenue.toFixed(2)}</div>
                 </div>
               </div>
@@ -197,7 +219,7 @@ const AdminPanel = ({ onLogout }) => {
       {/* Adicionar produto */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-black">Adicionar Novo Produto</CardTitle>
+          <CardTitle>Adicionar Novo Produto</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -234,27 +256,27 @@ const AdminPanel = ({ onLogout }) => {
       {/* Lista de produtos */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-black">Estoque de Produtos</CardTitle>
+          <CardTitle>Estoque de Produtos</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left py-3 text-black">Produto</th>
-                  <th className="text-left py-3 text-black">Quantidade</th>
-                  <th className="text-left py-3 text-black">Preço</th>
-                  <th className="text-left py-3 text-black">Valor Total</th>
-                  <th className="text-left py-3 text-black">Ações</th>
+                  <th className="text-left py-3">Produto</th>
+                  <th className="text-left py-3">Quantidade</th>
+                  <th className="text-left py-3">Preço</th>
+                  <th className="text-left py-3">Valor Total</th>
+                  <th className="text-left py-3">Ações</th>
                 </tr>
               </thead>
               <tbody>
                 {products.map((product) => (
                   <tr key={product.id} className="border-b">
-                    <td className="py-3 text-black">{product.name}</td>
-                    <td className="py-3 text-black">{product.quantity}</td>
-                    <td className="py-3 text-black">R$ {product.price.toFixed(2)}</td>
-                    <td className="py-3 text-black">R$ {(product.quantity * product.price).toFixed(2)}</td>
+                    <td className="py-3">{product.name}</td>
+                    <td className="py-3">{product.quantity}</td>
+                    <td className="py-3">R$ {product.price.toFixed(2)}</td>
+                    <td className="py-3">R$ {(product.quantity * product.price).toFixed(2)}</td>
                     <td className="py-3">
                       <Button
                         onClick={() => deleteProduct(product.id)}
@@ -280,7 +302,7 @@ const AdminPanel = ({ onLogout }) => {
       {/* Adicionar venda */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-black">Registrar Nova Venda</CardTitle>
+          <CardTitle>Registrar Nova Venda</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -324,34 +346,87 @@ const AdminPanel = ({ onLogout }) => {
       {/* Lista de vendas */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-black">Histórico de Vendas</CardTitle>
+          <CardTitle>Histórico de Vendas</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left py-3 text-black">Data</th>
-                  <th className="text-left py-3 text-black">Produto</th>
-                  <th className="text-left py-3 text-black">Vendedor</th>
-                  <th className="text-left py-3 text-black">Quantidade</th>
-                  <th className="text-left py-3 text-black">Valor Total</th>
+                  <th className="text-left py-3">Data</th>
+                  <th className="text-left py-3">Produto</th>
+                  <th className="text-left py-3">Vendedor</th>
+                  <th className="text-left py-3">Quantidade</th>
+                  <th className="text-left py-3">Valor Total</th>
                 </tr>
               </thead>
               <tbody>
                 {sales.map((sale) => (
                   <tr key={sale.id} className="border-b">
-                    <td className="py-3 text-black">
+                    <td className="py-3">
                       {new Date(sale.date).toLocaleDateString('pt-BR')}
                     </td>
-                    <td className="py-3 text-black">{sale.productName}</td>
-                    <td className="py-3 text-black">{sale.sellerId}</td>
-                    <td className="py-3 text-black">{sale.quantity}</td>
-                    <td className="py-3 text-black">R$ {sale.totalValue.toFixed(2)}</td>
+                    <td className="py-3">{sale.productName}</td>
+                    <td className="py-3">{sale.sellerId}</td>
+                    <td className="py-3">{sale.quantity}</td>
+                    <td className="py-3">R$ {sale.totalValue.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderSellers = () => (
+    <div className="space-y-6">
+      {/* Adicionar vendedor */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Adicionar Novo Vendedor</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-4">
+            <input
+              type="text"
+              placeholder="Nome do vendedor"
+              value={newSeller}
+              onChange={(e) => setNewSeller(e.target.value)}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <Button onClick={addSeller} className="bg-blue-600 hover:bg-blue-700">
+              <UserPlus className="h-4 w-4 mr-2" />
+              Adicionar Vendedor
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Lista de vendedores */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Lista de Vendedores</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {sellers.map((seller) => (
+              <div key={seller} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <Users className="h-5 w-5 text-blue-600" />
+                  <span className="font-medium">{seller}</span>
+                </div>
+                <Button
+                  onClick={() => deleteSeller(seller)}
+                  variant="outline"
+                  size="sm"
+                  className="text-red-600 border-red-300 hover:bg-red-50"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -363,7 +438,7 @@ const AdminPanel = ({ onLogout }) => {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-black">Painel Administrativo - Ra Assistência</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Painel Administrativo - Ra Assistência</h1>
           <Button onClick={onLogout} variant="outline" className="text-red-600 border-red-300 hover:bg-red-50">
             <LogOut className="h-4 w-4 mr-2" />
             Sair
@@ -402,6 +477,15 @@ const AdminPanel = ({ onLogout }) => {
               <DollarSign className="h-5 w-5" />
               <span>Vendas</span>
             </button>
+            <button
+              onClick={() => setActiveTab('sellers')}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
+                activeTab === 'sellers' ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              <Users className="h-5 w-5" />
+              <span>Vendedores</span>
+            </button>
           </nav>
         </aside>
 
@@ -410,6 +494,7 @@ const AdminPanel = ({ onLogout }) => {
           {activeTab === 'dashboard' && renderDashboard()}
           {activeTab === 'products' && renderProducts()}
           {activeTab === 'sales' && renderSales()}
+          {activeTab === 'sellers' && renderSellers()}
         </main>
       </div>
     </div>
