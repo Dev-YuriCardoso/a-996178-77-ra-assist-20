@@ -10,6 +10,12 @@ const Index = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showServicesModal, setShowServicesModal] = useState(false);
+  const [formData, setFormData] = useState({
+    nome: '',
+    telefone: '',
+    dispositivo: '',
+    problema: ''
+  });
 
   const handleLogin = (email, password) => {
     if (email === 'admin' && password === 'alan@123') {
@@ -27,6 +33,47 @@ const Index = () => {
   const scrollToServices = () => {
     const servicesSection = document.getElementById('services');
     servicesSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    
+    const { nome, telefone, dispositivo, problema } = formData;
+    
+    // Criar o corpo do email
+    const subject = encodeURIComponent('Nova Solicitação Tech - Ra Assistência');
+    const body = encodeURIComponent(`
+Olá,
+
+Uma nova solicitação tech foi recebida através do site:
+
+Nome: ${nome}
+Telefone: ${telefone}
+Dispositivo: ${dispositivo}
+Problema: ${problema}
+
+Atenciosamente,
+Sistema Ra Assistência Técnica
+    `);
+    
+    // Abrir cliente de email
+    window.location.href = `mailto:lixeiradoyuno@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Limpar formulário
+    setFormData({
+      nome: '',
+      telefone: '',
+      dispositivo: '',
+      problema: ''
+    });
   };
 
   if (isLoggedIn) {
@@ -408,7 +455,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Contato */}
+      {/* Contato - Updated with new contact information and form functionality */}
       <section className="py-24 bg-gradient-to-br from-black via-gray-900 to-slate-900">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
@@ -434,7 +481,7 @@ const Index = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-white text-xl">Telefone</p>
-                      <p className="text-gray-400 text-lg">(11) 99999-9999</p>
+                      <p className="text-gray-400 text-lg">+55 71 98555-5286</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-6">
@@ -443,7 +490,7 @@ const Index = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-white text-xl">E-mail</p>
-                      <p className="text-gray-400 text-lg">contato@raassistencia.com.br</p>
+                      <p className="text-gray-400 text-lg">lixeiradoyuno@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-6">
@@ -452,7 +499,7 @@ const Index = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-white text-xl">Endereço</p>
-                      <p className="text-gray-400 text-lg">Rua das Flores, 123 - Centro<br />São Paulo - SP</p>
+                      <p className="text-gray-400 text-lg">R. Adalgisa Silva Lima, 133 - São Gonçalo<br />Salvador - BA, 41190-150, Brasil</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-6">
@@ -475,45 +522,66 @@ const Index = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8">
-                  <div className="space-y-6">
+                  <form onSubmit={handleSubmitForm} className="space-y-6">
                     <div>
                       <label className="block text-sm font-semibold text-gray-300 mb-3">Nome</label>
                       <input 
                         type="text" 
+                        name="nome"
+                        value={formData.nome}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white placeholder-gray-500 transition-all duration-300 backdrop-blur-sm"
                         placeholder="Seu nome completo"
+                        required
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-300 mb-3">Telefone</label>
                       <input 
                         type="tel" 
+                        name="telefone"
+                        value={formData.telefone}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white placeholder-gray-500 transition-all duration-300 backdrop-blur-sm"
-                        placeholder="(11) 99999-9999"
+                        placeholder="(71) 99999-9999"
+                        required
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-300 mb-3">Dispositivo</label>
-                      <select className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white transition-all duration-300 backdrop-blur-sm">
-                        <option className="bg-gray-800">Selecione...</option>
-                        <option className="bg-gray-800">Smartphone</option>
-                        <option className="bg-gray-800">Notebook</option>
-                        <option className="bg-gray-800">Computador Desktop</option>
-                        <option className="bg-gray-800">Tablet</option>
+                      <select 
+                        name="dispositivo"
+                        value={formData.dispositivo}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white transition-all duration-300 backdrop-blur-sm"
+                        required
+                      >
+                        <option value="" className="bg-gray-800">Selecione...</option>
+                        <option value="Smartphone" className="bg-gray-800">Smartphone</option>
+                        <option value="Notebook" className="bg-gray-800">Notebook</option>
+                        <option value="Computador Desktop" className="bg-gray-800">Computador Desktop</option>
+                        <option value="Tablet" className="bg-gray-800">Tablet</option>
                       </select>
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-300 mb-3">Problema</label>
                       <textarea 
+                        name="problema"
+                        value={formData.problema}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white placeholder-gray-500 h-32 transition-all duration-300 resize-none backdrop-blur-sm"
                         placeholder="Descreva o problema do seu dispositivo..."
+                        required
                       ></textarea>
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-600 hover:via-purple-600 hover:to-pink-600 text-white border-0 shadow-2xl hover:shadow-cyan-500/25 transition-all duration-500 transform hover:scale-105 py-4 text-lg">
+                    <Button 
+                      type="submit"
+                      className="w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-600 hover:via-purple-600 hover:to-pink-600 text-white border-0 shadow-2xl hover:shadow-cyan-500/25 transition-all duration-500 transform hover:scale-105 py-4 text-lg"
+                    >
                       <Zap className="mr-2 h-5 w-5" />
-                      Enviar Solicitação Tech
+                      Enviar Solicitação
                     </Button>
-                  </div>
+                  </form>
                 </CardContent>
               </Card>
             </div>
